@@ -1,16 +1,34 @@
+import { useState } from "react"
 import styled from "styled-components"
+import Alert from "../components/alert"
 
 export default function Form(){
+  const [abrirAlert, setAbrirAlert] = useState(false);
+
+  function confirmarAssinatura() {
+    console.log('Confirmar Assinatura')
+  }
+
+  function assinar(event) {
+    event.preventDefault();
+    setAbrirAlert(true)
+  }
+
   return (
-    <EstiloFormulario>
-      <input type="text" placeholder="Nome impresso no cartão" />
-      <input type="text" placeholder="Digitos do cartão" />
-      <div className="grupo">
-        <input type="number" className="codigo-seguranca" placeholder="Código de segurança" />
-        <input type="text" className="validade" placeholder="Validade" />
-      </div>
-      <button type="submit">ASSINAR</button>
-    </EstiloFormulario>
+    <>
+      <EstiloFormulario onSubmit={assinar}>
+        <input type="text" placeholder="Nome impresso no cartão" />
+        <input type="text" placeholder="Digitos do cartão" />
+        <div className="grupo">
+          <input type="number" className="codigo-seguranca" placeholder="Código de segurança" />
+          <input type="text" className="validade" placeholder="Validade" />
+        </div>
+        <button type="submit">ASSINAR</button>
+      </EstiloFormulario>
+      {
+        abrirAlert === true ? <Alert confirmarAssinatura={confirmarAssinatura} /> : <></>
+      }
+    </>
   )
 }
 
