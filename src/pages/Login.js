@@ -18,14 +18,14 @@ export default function Login(){
 const Container = styled.div`
 background-color: black;
 display: flex;
-justify-content: center;
-padding: 134px 38px 38px 38px;
+padding: 134px 38px;
 flex-direction: column;
 font-family: 'Roboto', sans-serif;
 height: 100vh;
 
   .logo{
-      height: 49px;
+      display: flex;
+      justify-content: center;
       width: 299px;
       margin-bottom: 100px;
       
