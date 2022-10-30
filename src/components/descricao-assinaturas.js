@@ -2,7 +2,7 @@ import styled from "styled-components"
 import beneficios from "../assets/beneficios.png"
 import preco from "../assets/preco.png"
 
-export default function InputsAssinaturas (){
+export default function InputsAssinaturas({ perks, price }){
   return(
     <InpAssinaturas>
       <EstiloBeneficios>
@@ -11,18 +11,18 @@ export default function InputsAssinaturas (){
           <h3>Benefícios:</h3>
          </div>
          <ul className="lista-beneficios">
-          <li>
-            <a className="beneficio" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-              <span className="id">1.</span>
-              <span className="nome-beneficio">Solicitar brindes</span>
-            </a>
-          </li>
-          <li>
-            <a className="beneficio" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-              <span className="id">2.</span>
-              <span className="nome-beneficio">Materiais bônus de web</span>
-            </a>
-          </li>
+          {
+            perks?.map((perk, index) => {
+              return (
+                <li key={perk.id}>
+                  <a className="beneficio" href={perk.link}>
+                    <span className="id">{index+=1}.</span>
+                    <span className="nome-beneficio">{perk.title}</span>
+                  </a>
+                </li>
+              )
+            })
+          }
          </ul>
       </EstiloBeneficios>
       <EstiloPreco>
@@ -31,7 +31,7 @@ export default function InputsAssinaturas (){
             <h3>Preço:</h3>
          </div>
          <div className="preco">
-            <p>R$ 39,99 cobrados mensalmente</p>
+            <p>R$ {price?.replace('.',',')} cobrados mensalmente</p>
          </div>
       </EstiloPreco>
     </InpAssinaturas>

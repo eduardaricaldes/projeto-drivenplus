@@ -1,28 +1,57 @@
 import styled from "styled-components"
-import text from "../assets/test.png"
+import { useParams, useNavigate } from 'react-router-dom';
+import { useEffect, useState, useContext } from "react";
+import axios from "axios";
+
 import arrow from "../assets/arrow.svg"
 import InputsAssinaturas from "../components/descricao-assinaturas"
 import FormAssinatura from "../components/form-assinaturas"
+import { AutenticacaoContext } from '../contexts/AutenticacaoProvider';
+
+import { URL } from '../constant/Api'
 
 export default function Assinatura(){
+  const [assinatura, setAssinatura] = useState({});
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [token] = useContext(AutenticacaoContext);
+  
+  function voltar(){
+    navigate(-1);
+  }
+
+  useEffect(() => {
+    if(token) {
+      axios(`${URL.OBTER_PLANO}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then((response) => {
+        const dados = response.data;
+        setAssinatura(dados)
+      }).catch(() => {
+        alert('Não conseguimos baixar os planos')
+      });
+    }
+  }, [])
+
   return(
     <EstiloAssinatura>
       <EstiloHeader>
-        <div className="botao-voltar">
+        <div className="botao-voltar" onClick={voltar}>
           <img src={arrow} alt="arrow" />
         </div>
       </EstiloHeader>
       <EstAssinaturaTop>
-
         <div className="plano">
           <div className="imagem">
-            <img src={text} alt="test"/> 
+            <img src={assinatura?.image} alt="test"/> 
           </div>
           <div className="nomeplano">
-            <h2>Driven Plus</h2> 
+            <h2>{assinatura?.name}</h2> 
           </div>
         </div>
-        <InputsAssinaturas />
+        <InputsAssinaturas perks={assinatura?.perks} price={assinatura?.price}/>
         <FormAssinatura/>
       </EstAssinaturaTop>  
     </EstiloAssinatura>
