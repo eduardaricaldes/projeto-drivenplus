@@ -12,19 +12,17 @@ export default function Planos(){
   const [token] = useContext(AutenticacaoContext);
 
   useEffect(() => {
-    if(token) {
-      axios(URL.LISTAR_PLANOS, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }).then((response) => {
-        const dados = response.data;
-        setSubscriptions(dados)
-      }).catch(() => {
-        alert('Não conseguimos baixar os planos')
-      });
-    }
-  }, [])
+    axios(URL.LISTAR_PLANOS, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      const dados = response.data;
+      setSubscriptions(dados)
+    }).catch(() => {
+      alert('Não conseguimos baixar os planos')
+    });
+  }, [token])
 
   return(
     <ContainerPlanos>

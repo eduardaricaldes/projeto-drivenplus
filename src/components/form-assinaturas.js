@@ -1,12 +1,70 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
-import Alert from "../components/alert"
+import axios from "axios";
 
-export default function Form(){
+import Alert from "../components/alert"
+import { AutenticacaoContext } from '../contexts/AutenticacaoProvider';
+import { URL } from '../constant/Api'
+
+export default function Form({ assinatura }){
+  const [token] = useContext(AutenticacaoContext);
   const [abrirAlert, setAbrirAlert] = useState(false);
+  const [nomeCartao, setNomeCartao] = useState("");
+  const [digitos, setDigitos] = useState("");
+  const [codigo, setCodigo] = useState(0);
+  const [validade, setValidade] = useState("");
+  const navigate = useNavigate();
+
+  function resetarForm() {
+    setNomeCartao("");
+    setDigitos("");
+    setCodigo(0);
+    setValidade("");
+  }
 
   function confirmarAssinatura() {
-    console.log('Confirmar Assinatura')
+    axios.post(URL.ASSINAR_PLANO, {
+        membershipId: assinatura.id,
+        cardName: nomeCartao,
+        cardNumber: digitos,
+        securityNumber: codigo,
+        expirationDate: validade,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      resetarForm()
+      navigate('/home');
+    }).catch(() => {
+      resetarForm()
+      alert('Problema ao assinar')
+    })
+  }
+
+  function onChangeNomeCartao(value) {
+    if(value !== "") {
+      setNomeCartao(value)
+    }
+  }
+
+  function onChangeDigitos(value) {
+    if(value !== "") {
+      setDigitos(value)
+    }
+  }
+
+  function onChangeCodigo(value) {
+    if(value !== undefined) {
+      setCodigo(value)
+    }
+  }
+
+  function onChangeValidade(value) {
+    if(value !== "") {
+      setValidade(value)
+    }
   }
 
   function assinar(event) {
@@ -17,16 +75,21 @@ export default function Form(){
   return (
     <>
       <EstiloFormulario onSubmit={assinar}>
-        <input type="text" placeholder="Nome impresso no cartão" />
-        <input type="text" placeholder="Digitos do cartão" />
+        <input type="text" placeholder="Nome impresso no cartão" onChange={event => onChangeNomeCartao(event.target.value)}/>
+        <input type="text" placeholder="Digitos do cartão" onChange={event => onChangeDigitos(event.target.value)}/>
         <div className="grupo">
-          <input type="number" className="codigo-seguranca" placeholder="Código de segurança" />
-          <input type="text" className="validade" placeholder="Validade" />
+          <input type="number" className="codigo-seguranca" placeholder="Código de segurança" onChange={event => onChangeCodigo(event.target.value)}/>
+          <input type="text" className="validade" placeholder="Validade" onChange={event => onChangeValidade(event.target.value)}/>
         </div>
         <button type="submit">ASSINAR</button>
       </EstiloFormulario>
       {
-        abrirAlert === true ? <Alert confirmarAssinatura={confirmarAssinatura} /> : <></>
+        abrirAlert === true ? (
+          <Alert
+            confirmarAssinatura={confirmarAssinatura}
+            assinatura={`<h3 class="tituloAlert">Tem certeza que deseja assinar o plano ${assinatura.name} (R$ ${assinatura.price.replace('.', ',')}) ?</h3>`}
+          />
+        ) : <></>
       }
     </>
   )

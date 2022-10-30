@@ -144,3 +144,10 @@ table {
 body {
   background-color: #F2F2F2;
 }
+
+.tituloAlert {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+}

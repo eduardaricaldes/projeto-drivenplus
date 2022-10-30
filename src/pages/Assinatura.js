@@ -21,18 +21,16 @@ export default function Assinatura(){
   }
 
   useEffect(() => {
-    if(token) {
-      axios(`${URL.OBTER_PLANO}/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }).then((response) => {
-        const dados = response.data;
-        setAssinatura(dados)
-      }).catch(() => {
-        alert('Não conseguimos baixar os planos')
-      });
-    }
+    axios(`${URL.OBTER_PLANO}/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then((response) => {
+      const dados = response.data;
+      setAssinatura(dados)
+    }).catch(() => {
+      alert('Não conseguimos baixar os planos')
+    });
   }, [])
 
   return(
@@ -52,7 +50,7 @@ export default function Assinatura(){
           </div>
         </div>
         <InputsAssinaturas perks={assinatura?.perks} price={assinatura?.price}/>
-        <FormAssinatura/>
+        <FormAssinatura assinatura={assinatura}/>
       </EstAssinaturaTop>  
     </EstiloAssinatura>
   )
