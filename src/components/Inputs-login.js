@@ -21,11 +21,8 @@ flex-direction: column;
     border-radius: 8px;
     height: 52px;
     width: 299px;
-
-      ::placeholder{
-        padding: 18px 14px;
-        font-size: 14px;
-      }
+    padding: 18px 14px;
+    font-size: 14px;
   }
   .botao{
     width: 298px;

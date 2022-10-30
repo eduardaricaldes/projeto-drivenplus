@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { createContext, useState } from 'react';
 
-const UsuarioContext = createContext([
+export const UsuarioContext = createContext([
   {},
   () => {},
 ])

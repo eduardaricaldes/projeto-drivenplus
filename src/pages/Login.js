@@ -1,34 +1,57 @@
 import styled from "styled-components"
-import logo from "../assets/logo.png";
-import InputsLogin from "../components/Inputs-login";
-
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-import { LOGIN } from '../constant/Api'
+import logo from "../assets/logo.png";
+import InputsLogin from "../components/Inputs-login";
+import { URL } from '../constant/Api'
+
+import { AutenticacaoContext } from '../contexts/AutenticacaoProvider';
+import { UsuarioContext } from '../contexts/UserContext';
 
 export default function Login(){
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
+  const [token, setToken, logado, setLogado] = useContext(AutenticacaoContext);
+  const [usuario, setUsuario] = useContext(UsuarioContext);
 
   function resetarForm() {
     setEmail("");
     setSenha("");
   }
 
+  function setarUsuario(usuario) {
+    setUsuario({
+      id: usuario.id,
+      name: usuario.name,
+      email: usuario.email,
+      membership: usuario.membership,
+    });
+    setToken(usuario.token);
+    setLogado(true);
+  }
+
   function submit(event) {
     event.preventDefault();
-    axios.post(LOGIN, {
+    axios.post(URL.LOGIN, {
       email: email,
       password: senha,
     })
     .then((response) => {
-      navigate("/")
+      const usuarioResponse = response.data
+      setarUsuario(usuarioResponse);
+
+      if(!usuarioResponse.membership) {
+        navigate("/subscriptions")
+      }
+      navigate("/home")
     })
     .catch(() => {
+      alert("Usuario e senha incorretos");
       resetarForm()
+      event.target.reset();
     })
   }
 
