@@ -1,9 +1,16 @@
 import styled from "styled-components"
+import { useContext } from "react";
+
 import perfil from "../assets/perfil.svg"
 import imagemplano from "../assets/test.png"
 import Materiais from "../components/Home-materiais"
 
+import { UsuarioContext } from '../contexts/UserContext';
+
+
 export default function Home (){
+  const [usuario] = useContext(UsuarioContext);
+
   return(
   <>
     <TopBar>
@@ -15,7 +22,7 @@ export default function Home (){
       </div>
     </TopBar>
     <EstHome>
-      <h2>Olá, fulano</h2>
+      <h2>{usuario.name}</h2>
       <Materiais />
     </EstHome>
   </>

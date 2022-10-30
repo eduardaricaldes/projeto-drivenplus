@@ -11,7 +11,7 @@ export default function Materiais(){
     </Container>
     <ButtonEnd>
         <button className="trocar"type="submit">Mudar plano</button>
-        <button className="cancelar" type="submit">cancelar</button>
+        <button className="cancelar" type="submit">Cancelar</button>
     </ButtonEnd>
   </>
   )

@@ -43,10 +43,11 @@ export default function Login(){
       const usuarioResponse = response.data
       setarUsuario(usuarioResponse);
 
-      if(!usuarioResponse.membership) {
+      if(usuarioResponse.membership === null) {
         navigate("/subscriptions")
+      }else{
+        navigate("/home")
       }
-      navigate("/home")
     })
     .catch(() => {
       alert("Usuario e senha incorretos");
