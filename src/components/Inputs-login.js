@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export default  function InputsLogin({ onChangeSenha, onChangeEmail }){
   return(
     <EstInputs>
-      <input className="email" placeholder="E-mail" type="email" onChange={onChangeEmail} />
-      <input className="password" type="password" placeholder="Senha" onChange={onChangeSenha} />
+      <input className="email" placeholder="E-mail" type="email" onChange={event => onChangeEmail(event.target.value)} />
+      <input className="password" type="password" placeholder="Senha" onChange={event => onChangeSenha(event.target.value)} />
       <button className="botao">ENTRAR</button>
       <Link to="/sign-up" className="cadastrar">Não possuí uma conta? Cadastre-se</Link>
     </EstInputs>

@@ -19,10 +19,10 @@ export default function App(){
   return(
     <Routes>
       <Route element={<Login/>} path="/"/>
-      <Route element={<SignUp />} path="/signup"/>
-      <Route element={<RotaPrivada Componente={<Planos/>}/>} path="/subscriptions" />
-      <Route element={<RotaPrivada Componente={<Assinatura/>}/>} path="/subscriptions/:id" />
-      <Route element={<RotaPrivada Componente={<Home />}/>} path="/home"/>
+      <Route element={<SignUp />} path="/sign-up"/>
+      <Route element={<RotaPrivada Componente={Planos}/>} path="/subscriptions" />
+      <Route element={<RotaPrivada Componente={Assinatura}/>} path="/subscriptions/:id" />
+      <Route element={<RotaPrivada Componente={Home}/>} path="/home"/>
     </Routes>
   )
 }

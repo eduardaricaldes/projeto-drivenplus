@@ -1,15 +1,20 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom";
 
-export default function InputSignUp (){
+export default function InputSignUp(
+  {
+    onChangeNome,
+    onChangeEmail,
+    onChangeSenha,
+    onChangeCPF,
+  }
+){
   return(
     <EstInputSignUp>
-      <input className="Nome" placeholder="Nome" type="text"></input>
-      <input className="email" placeholder="E-mail" type="email"></input>
-      <input className="number" placeholder="CPF" type="number"></input>
-      <input className="password" type="password" placeholder="Senha"></input>
-
-
+      <input placeholder="Nome" type="text" onChange={event => onChangeNome(event.target.value)}/>
+      <input placeholder="E-mail" type="email" onChange={event => onChangeEmail(event.target.value)}/>
+      <input placeholder="CPF" type="text" onChange={event => onChangeCPF(event.target.value)}/>
+      <input type="password" placeholder="Senha" onChange={event => onChangeSenha(event.target.value)}/>
       <button className="botao">CADASTRAR</button>
       <Link to="/" className="cadastrar">Já possuí uma conta? Entre</Link>
     </EstInputSignUp>
@@ -24,15 +29,10 @@ flex-direction: column;
     margin-bottom: 16px;
     border-radius: 8px;
     height: 52px;
-    width: 299px;
-
-      ::placeholder{
-        padding: 18px 14px;
-        font-size: 14px;
-      }
+    padding: 18px 14px;
+    font-size: 14px;
   }
   .botao{
-    width: 298px;
     height: 52px;
     border-radius: 8px;
     background-color: #FF4791;
@@ -46,7 +46,6 @@ flex-direction: column;
     font-size: 12px;
     color:#fff;
     text-align: center;
-    
   }
 
 `

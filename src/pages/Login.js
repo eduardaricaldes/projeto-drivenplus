@@ -15,7 +15,7 @@ export default function Login(){
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
   const [token, setToken, logado, setLogado] = useContext(AutenticacaoContext);
-  const [usuario, setUsuario] = useContext(UsuarioContext);
+  const [usuario, setDadosDoUsuario] = useContext(UsuarioContext);
 
   function resetarForm() {
     setEmail("");
@@ -23,7 +23,7 @@ export default function Login(){
   }
 
   function setarUsuario(usuario) {
-    setUsuario({
+    setDadosDoUsuario({
       id: usuario.id,
       name: usuario.name,
       email: usuario.email,
