@@ -1,11 +1,11 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom";
 
-export default  function InputsLogin (){
+export default  function InputsLogin({ onChangeSenha, onChangeEmail }){
   return(
     <EstInputs>
-      <input className="email" placeholder="E-mail" type="email"></input>
-      <input className="password" type="password" placeholder="Senha"></input>
+      <input className="email" placeholder="E-mail" type="email" onChange={onChangeEmail} />
+      <input className="password" type="password" placeholder="Senha" onChange={onChangeSenha} />
       <button className="botao">ENTRAR</button>
       <Link to="/sign-up" className="cadastrar">Não possuí uma conta? Cadastre-se</Link>
     </EstInputs>
