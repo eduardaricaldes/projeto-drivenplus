@@ -1,14 +1,20 @@
 import styled from "styled-components"
 import { Link } from "react-router-dom";
-import teste from "../assets/test.png"
-export default function Plano (){
+
+export default function Plano(
+  {
+    id,
+    image,
+    price,
+  }
+){
   return (
     <Pacotes>
       <Link 
-        to="/subscriptions/id" className="box">
-         <img src={teste} alt="teste"/>
+        to={`/subscriptions/${id}`} className="box">
+         <img src={image} alt="teste"/>
          <div className="preco">
-          <p>R$ 39,99</p>
+          <p>R$ {price.replace('.',',')}</p>
         </div>
       </Link>
     </Pacotes>

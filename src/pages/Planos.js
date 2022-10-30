@@ -1,11 +1,46 @@
 import styled from "styled-components";
+import { useEffect, useState, useContext } from "react";
+import axios from "axios";
+
 import Plano from "../components/Plano";
+import { AutenticacaoContext } from '../contexts/AutenticacaoProvider';
+
+import { URL } from '../constant/Api'
 
 export default function Planos(){
+  const [subscriptions, setSubscriptions] = useState([]);
+  const [token] = useContext(AutenticacaoContext);
+
+  useEffect(() => {
+    if(token) {
+      axios(URL.LISTAR_PLANOS, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }).then((response) => {
+        const dados = response.data;
+        setSubscriptions(dados)
+      }).catch(() => {
+        alert('Não conseguimos baixar os planos')
+      });
+    }
+  }, [])
+
   return(
     <ContainerPlanos>
       <h1>Escolha seu Plano</h1>
-      <Plano/>
+      {
+        subscriptions.map((plano) => {
+          return (
+            <Plano
+              key={plano.id}
+              id={plano.id}
+              image={plano.image}
+              price={plano.price}
+            />
+          )
+        })
+      }
     </ContainerPlanos>
   )
 }
