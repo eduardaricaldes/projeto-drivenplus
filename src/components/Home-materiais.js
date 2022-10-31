@@ -1,6 +1,34 @@
 import styled from "styled-components"
+import { useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+import { AutenticacaoContext } from '../contexts/AutenticacaoProvider';
+import { UsuarioContext } from '../contexts/UserContext';
+import { URL } from '../constant/Api'
 
 export default function Materiais({ membership }){
+  const [token] = useContext(AutenticacaoContext);
+  const [usuario, setDadosDoUsuario, atualizarMembership] = useContext(UsuarioContext);
+  const navigate = useNavigate();
+
+  function cancelar() {
+    axios.delete(URL.CANCELAR_PLANO, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(() => {
+      atualizarMembership({})
+      navigate('/subscriptions');
+    }).catch(() => {
+      alert('Não conseguimos cancelar o plano')
+    })
+  }
+
+  function alterar() {
+    navigate('/subscriptions');
+  }
+
   return(
     <>
     <ButtonTop>
@@ -13,8 +41,8 @@ export default function Materiais({ membership }){
         }
       </ButtonTop>
     <ButtonEnd>
-        <button className="trocar"type="submit">Mudar plano</button>
-        <button className="cancelar" type="submit">Cancelar</button>
+        <button className="trocar"type="submit" onClick={() => alterar()}>Mudar plano</button>
+        <button className="cancelar" type="submit" onClick={() => cancelar()}>Cancelar</button>
     </ButtonEnd>
   </>
   )

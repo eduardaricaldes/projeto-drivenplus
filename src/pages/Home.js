@@ -2,7 +2,6 @@ import styled from "styled-components"
 import { useContext } from "react";
 
 import perfil from "../assets/perfil.svg"
-import imagemplano from "../assets/test.png"
 import Materiais from "../components/Home-materiais"
 
 import { UsuarioContext } from '../contexts/UserContext';

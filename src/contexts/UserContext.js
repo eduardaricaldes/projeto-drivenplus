@@ -32,6 +32,7 @@ export const UsuarioProvider = ({ children }) => {
     const dadosUsuario = JSON.parse(user);
     dadosUsuario.membership = membership
     setMembership(membership)
+    setUsuario(dadosUsuario)
   }
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export const UsuarioProvider = ({ children }) => {
     if(dadosUsuarios) {
       const dados = JSON.parse(dadosUsuarios);
       setUsuario(dados)
-      setMembership(dados?.membership)
+      setMembership(dados.membership)
     }
   }, [])
 

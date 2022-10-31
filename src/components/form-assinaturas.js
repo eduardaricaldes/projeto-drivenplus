@@ -39,8 +39,8 @@ export default function Form({ assinatura }){
       }
     }).then((response) => {
       resetarForm();
-      const mermbership = response.data;
-      atualizarMembership(mermbership)
+      const data = response.data;
+      atualizarMembership(data.membership)
       navigate('/home');
     }).catch(() => {
       resetarForm()
