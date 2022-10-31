@@ -5,10 +5,13 @@ import axios from "axios";
 
 import Alert from "../components/alert"
 import { AutenticacaoContext } from '../contexts/AutenticacaoProvider';
+import { UsuarioContext } from '../contexts/UserContext';
+
 import { URL } from '../constant/Api'
 
 export default function Form({ assinatura }){
   const [token] = useContext(AutenticacaoContext);
+  const [usuario, setDadosDoUsuario] = useContext(UsuarioContext);
   const [abrirAlert, setAbrirAlert] = useState(false);
   const [nomeCartao, setNomeCartao] = useState("");
   const [digitos, setDigitos] = useState("");
@@ -35,7 +38,14 @@ export default function Form({ assinatura }){
         Authorization: `Bearer ${token}`
       }
     }).then((response) => {
-      resetarForm()
+      resetarForm();
+      const usuario = response.data;
+      setDadosDoUsuario({
+        id: usuario.id,
+        name: usuario.name,
+        email: usuario.email,
+        membership: usuario.membership,
+      })
       navigate('/home');
     }).catch(() => {
       resetarForm()

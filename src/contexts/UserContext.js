@@ -27,6 +27,13 @@ export const UsuarioProvider = ({ children }) => {
     setMembership(membership)
   }
 
+  function atualizarMembership(membership) {
+    const user = localStorage.getItem('data');
+    const dadosUsuario = JSON.parse(user);
+    dadosUsuario.membership = membership
+    setMembership(membership)
+  }
+
   useEffect(() => {
     const dadosUsuarios = localStorage.getItem('data');
     if(dadosUsuarios) {
@@ -35,7 +42,7 @@ export const UsuarioProvider = ({ children }) => {
   }, [])
 
   return (
-    <UsuarioContext.Provider value={[usuario, setDadosDoUsuario, membership, setMembership]}>
+    <UsuarioContext.Provider value={[usuario, setDadosDoUsuario, atualizarMembership, membership, setMembership]}>
       {children}
     </UsuarioContext.Provider>
   )
