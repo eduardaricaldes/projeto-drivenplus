@@ -9,13 +9,13 @@ import { UsuarioContext } from '../contexts/UserContext';
 
 
 export default function Home (){
-  const [usuario] = useContext(UsuarioContext);
+  const [usuario, setDadosDoUsuario, atualizarMembership, membership] = useContext(UsuarioContext);
 
   return(
   <>
     <TopBar>
       <div className="foto-plano">
-        <img src={imagemplano} alt="logo"/>
+        <img src={membership.image} alt="logo"/>
       </div>
       <div className="perfil">
         <img src={perfil} alt="pefil"/>
@@ -23,7 +23,7 @@ export default function Home (){
     </TopBar>
     <EstHome>
       <h2>{usuario.name}</h2>
-      <Materiais />
+      <Materiais membership={membership} />
     </EstHome>
   </>
   )

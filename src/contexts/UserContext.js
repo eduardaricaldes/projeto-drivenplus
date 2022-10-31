@@ -37,7 +37,9 @@ export const UsuarioProvider = ({ children }) => {
   useEffect(() => {
     const dadosUsuarios = localStorage.getItem('data');
     if(dadosUsuarios) {
-      setUsuario(JSON.parse(dadosUsuarios))
+      const dados = JSON.parse(dadosUsuarios);
+      setUsuario(dados)
+      setMembership(dados?.membership)
     }
   }, [])
 
