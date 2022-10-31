@@ -17,7 +17,7 @@ export default function Assinatura(){
   const [token] = useContext(AutenticacaoContext);
   
   function voltar(){
-    navigate(-1);
+    navigate('/subscriptions');
   }
 
   useEffect(() => {

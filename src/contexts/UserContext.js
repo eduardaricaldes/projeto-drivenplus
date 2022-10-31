@@ -33,6 +33,7 @@ export const UsuarioProvider = ({ children }) => {
     dadosUsuario.membership = membership
     setMembership(membership)
     setUsuario(dadosUsuario)
+    localStorage.setItem('data', JSON.stringify(dadosUsuario))
   }
 
   useEffect(() => {
