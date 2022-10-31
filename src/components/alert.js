@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 const MySwal = withReactContent(Swal)
-export default function Alert({confirmarAssinatura, assinatura}){
+export default function Alert({confirmarAssinatura, assinatura, setAbrirAlert }){
   useEffect(() => {
     Swal.fire({
       })
@@ -15,12 +15,12 @@ export default function Alert({confirmarAssinatura, assinatura}){
         cancelButtonText: 'NÃO',
         confirmButtonColor: '#FF4791',
         confirmButtonText: 'SIM',
-        onConfirmButtonText: 'Yes, delete it!',
         allowOutsideClick: false,
     }).then((response) => {
-      if(response.isDismissed) {
-      }else if(response.isConfirmed) {
+      if(response.isConfirmed) {
         confirmarAssinatura();
+      }else {
+        setAbrirAlert(false);
       }
     })
   }, [])

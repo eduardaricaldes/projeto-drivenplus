@@ -92,6 +92,7 @@ export default function Form({ assinatura }){
         abrirAlert === true ? (
           <Alert
             confirmarAssinatura={confirmarAssinatura}
+            setAbrirAlert={setAbrirAlert}
             assinatura={`<h3 class="tituloAlert">Tem certeza que deseja assinar o plano ${assinatura.name} (R$ ${assinatura.price.replace('.', ',')}) ?</h3>`}
           />
         ) : <></>
